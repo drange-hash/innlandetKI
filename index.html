@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Innlandet KI – Alternativ B</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green: #1B2B5E;
+    --green-light: #263a7a;
+    --green-pale: #EAF0FA;
+    --sand: #D4B896;
+    --sand-light: #e8cdb0;
+    --cream: #F5F0E8;
+    --dark: #2A2420;
+    --muted: #7A6E65;
+    --border: #E2D9CF;
+  }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--cream);
+    color: var(--dark);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(245,240,232,0.93);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 48px;
+    height: 68px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .logo {
+    font-family: 'Lora', serif;
+    font-size: 1.25rem;
+    color: var(--green);
+    letter-spacing: 0.01em;
+  }
+  .logo span {
+    font-weight: 600;
+    font-style: italic;
+  }
+  .nav-cta {
+    background: var(--green);
+    color: white;
+    padding: 9px 22px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: background 0.2s;
+    font-family: 'Nunito', sans-serif;
+  }
+  .nav-cta:hover { background: var(--green-light); }
+
+  /* HERO */
+  .hero {
+    padding: 150px 48px 100px;
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--green-pale);
+    color: var(--green);
+    font-size: 0.78rem; font-weight: 700;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 50px;
+    margin-bottom: 24px;
+  }
+  .hero-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--green);
+    border-radius: 50%;
+  }
+  .hero h1 {
+    font-family: 'Lora', serif;
+    font-size: clamp(2rem, 3.5vw, 2.9rem);
+    line-height: 1.25;
+    color: var(--dark);
+    letter-spacing: -0.01em;
+    margin-bottom: 20px;
+  }
+  .hero h1 em { font-style: italic; color: var(--green); }
+  .hero p {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: var(--muted);
+    margin-bottom: 36px;
+    font-weight: 400;
+    max-width: 480px;
+  }
+  .hero-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--green);
+    color: white;
+    padding: 15px 30px;
+    border-radius: 50px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: background 0.2s, transform 0.2s;
+    font-family: 'Nunito', sans-serif;
+  }
+  .hero-btn:hover { background: var(--green-light); transform: translateY(-2px); }
+  .hero-note {
+    font-size: 0.8rem; color: var(--muted);
+    margin-top: 14px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .hero-note::before { content: '✓'; color: var(--green); font-weight: 700; }
+
+  /* STATS CARD */
+  .stats-card {
+    background: var(--green);
+    border-radius: 20px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .stat-item {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 12px;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .stat-icon {
+    width: 38px; height: 38px;
+    background: #C0603A;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+  .stat-label {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 3px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+  .stat-value {
+    font-size: 0.92rem;
+    color: white;
+    font-weight: 700;
+  }
+
+  /* HERO CARD */
+  .hero-card {
+    background: white;
+    border-radius: 20px;
+    padding: 36px;
+    box-shadow: 0 8px 40px rgba(45,90,61,0.1);
+    border: 1px solid var(--border);
+    position: relative;
+  }
+  .hero-card::before {
+    content: '';
+    position: absolute; top: -12px; right: 32px;
+    width: 60px; height: 4px;
+    background: var(--sand);
+    border-radius: 2px;
+  }
+  .card-intro {
+    font-size: 0.8rem; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700;
+    margin-bottom: 20px;
+  }
+  .about-text {
+    font-size: 0.95rem; line-height: 1.75;
+    color: var(--dark);
+  }
+  .about-text strong { color: var(--green); }
+  .divider {
+    width: 40px; height: 2px;
+    background: var(--sand);
+    border-radius: 1px;
+    margin: 20px 0;
+  }
+  .from-tag {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 0.85rem;
+  }
+  .from-icon {
+    width: 36px; height: 36px;
+    background: var(--green-pale);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+  }
+  .from-name { font-weight: 700; color: var(--dark); display: block; }
+  .from-sub { font-size: 0.78rem; color: var(--muted); }
+
+  /* PROBLEMS */
+  .problems-bg { background: white; }
+  .problems-inner { max-width: 1100px; margin: 0 auto; padding: 80px 48px; }
+
+  .section-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--green-pale);
+    color: var(--green);
+    font-size: 0.75rem; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 5px 12px; border-radius: 50px;
+    margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: 'Lora', serif;
+    font-size: clamp(1.5rem, 2.8vw, 2rem);
+    color: var(--dark);
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+  }
+  .section-sub {
+    font-size: 0.98rem; color: var(--muted);
+    line-height: 1.7; max-width: 520px;
+    margin-bottom: 48px;
+  }
+  .problem-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .problem-card {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px 28px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .problem-card:hover {
+    border-color: var(--sand);
+    transform: translateY(-2px);
+  }
+  .problem-q {
+    font-size: 0.88rem; color: var(--muted);
+    font-style: italic;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+    line-height: 1.5;
+  }
+  .problem-a {
+    font-size: 0.9rem; font-weight: 600;
+    color: var(--green);
+  }
+
+  /* STEPS */
+  section { padding: 80px 48px; max-width: 1100px; margin: 0 auto; }
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 48px;
+  }
+  .step-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+  }
+  .step-num {
+    font-family: 'Lora', serif;
+    font-size: 1.8rem;
+    color: var(--sand);
+    margin-bottom: 16px;
+    font-style: italic;
+  }
+  .step-card h3 {
+    font-size: 1rem; font-weight: 700;
+    color: var(--dark); margin-bottom: 8px;
+  }
+  .step-card p {
+    font-size: 0.87rem; color: var(--muted);
+    line-height: 1.65;
+  }
+
+  /* CONTACT */
+  .contact-bg {
+    background: var(--green);
+    padding: 80px 48px;
+  }
+  .contact-inner {
+    max-width: 580px; margin: 0 auto; text-align: center;
+  }
+  .contact-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.9);
+    font-size: 0.75rem; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 5px 14px; border-radius: 50px;
+    margin-bottom: 20px;
+  }
+  .contact-inner h2 {
+    font-family: 'Lora', serif;
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    color: white;
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+  }
+  .contact-inner p {
+    font-size: 0.97rem; color: rgba(255,255,255,0.65);
+    line-height: 1.7; margin-bottom: 36px;
+  }
+
+  .form-group { margin-bottom: 14px; text-align: left; }
+  .form-group label {
+    display: block; font-size: 0.78rem; font-weight: 700;
+    color: rgba(255,255,255,0.6); margin-bottom: 6px;
+    letter-spacing: 0.06em; text-transform: uppercase;
+  }
+  .form-group input, .form-group textarea {
+    width: 100%;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 12px;
+    padding: 13px 16px;
+    color: white;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.93rem;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(255,255,255,0.35); }
+  .form-group input:focus, .form-group textarea:focus {
+    border-color: var(--sand);
+    background: rgba(255,255,255,0.15);
+  }
+  .form-group textarea { resize: vertical; min-height: 100px; }
+  .submit-btn {
+    width: 100%;
+    background: var(--sand);
+    color: var(--dark);
+    border: none;
+    border-radius: 50px;
+    padding: 15px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    font-family: 'Nunito', sans-serif;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: background 0.2s;
+  }
+  .submit-btn:hover { background: var(--sand-light); }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 24px 48px;
+    display: flex; justify-content: space-between; align-items: center;
+    background: var(--cream);
+  }
+  .footer-logo {
+    font-family: 'Lora', serif;
+    font-size: 1rem; color: var(--green);
+  }
+  footer p { font-size: 0.8rem; color: var(--muted); }
+
+  /* ANIMATE */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-badge, .hero h1, .hero p, .hero-btn, .hero-note { animation: fadeUp 0.65s ease both; }
+  .hero-badge { animation-delay: 0.05s; }
+  .hero h1 { animation-delay: 0.15s; }
+  .hero p { animation-delay: 0.25s; }
+  .hero-btn { animation-delay: 0.35s; }
+  .hero-note { animation-delay: 0.4s; }
+  .hero-card { animation: fadeUp 0.7s 0.25s ease both; }
+
+  @media (max-width: 768px) {
+    .hero { grid-template-columns: 1fr; gap: 40px; padding: 110px 24px 60px; }
+    .problem-grid, .steps-grid { grid-template-columns: 1fr; }
+    nav { padding: 0 24px; }
+    section, .problems-inner, .contact-bg { padding: 60px 24px; }
+    footer { padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Innlandet <span>KI</span></div>
+  <button class="nav-cta">Ta kontakt</button>
+</nav>
+
+<div class="hero">
+  <div>
+    <span class="hero-badge">KI-rådgivning i Innlandet</span>
+    <h1>Spar tid på papirarbeid.<br><em>Bruk den på det som betyr noe.</em></h1>
+    <p>Jeg hjelper småbedrifter i Innlandet med å automatisere administrative rutiner – uten at du trenger å forstå teknologien.</p>
+    <button class="hero-btn">
+      Ta en uforpliktende prat →
+    </button>
+    <p class="hero-note">Helt gratis første samtale</p>
+  </div>
+  <div style="display: flex; flex-direction: column; gap: 20px;">
+    <div class="hero-card">
+      <div class="card-intro">Hvem er jeg?</div>
+      <p class="about-text">
+        Jeg heter Thoralf, og jeg kommer fra pedagogikken – ikke fra IT-bransjen.<br><br>
+        Det betyr at jeg er vant til å finne ut hva folk <strong>faktisk trenger</strong>, ikke bare hva de ber om.<br><br>
+        I dag hjelper jeg bedriftseiere med å bruke KI på en måte som faktisk fungerer i hverdagen.
+      </p>
+      <div class="divider"></div>
+      <div class="from-tag">
+        <div class="from-icon">👋</div>
+        <div>
+          <span class="from-name">Thoralf</span>
+          <span class="from-sub">Ringsaker · Innlandet</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="stats-card">
+      <div class="stat-item">
+        <div class="stat-icon">📋</div>
+        <div>
+          <div class="stat-label">Eksempel på oppgave</div>
+          <div class="stat-value">Ordre og fakturering automatisert</div>
+        </div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon">⏱</div>
+        <div>
+          <div class="stat-label">Typisk tidsbesparelse</div>
+          <div class="stat-value">3–6 timer per uke per ansatt</div>
+        </div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon">🗺</div>
+        <div>
+          <div class="stat-label">Lokalt forankret</div>
+          <div class="stat-value">Ringsaker · Hamar · Innlandet</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="problems-bg">
+  <div class="problems-inner">
+    <span class="section-badge">Hva jeg løser</span>
+    <h2 class="section-title">Kjenner du deg igjen?</h2>
+    <p class="section-sub">Mange bedrifter bruker unødvendig mye tid på rutineoppgaver. Her er typiske problemer jeg løser:</p>
+    <div class="problem-grid">
+      <div class="problem-card">
+        <p class="problem-q">«Vi bruker timer på å skrive de samme e-postene»</p>
+        <p class="problem-a">→ Automatiserte maler og svar</p>
+      </div>
+      <div class="problem-card">
+        <p class="problem-q">«Rapportering tar halve fredagen»</p>
+        <p class="problem-a">→ KI-assistert rapportgenerering</p>
+      </div>
+      <div class="problem-card">
+        <p class="problem-q">«Vi vet ikke hvilke KI-verktøy vi bør bruke»</p>
+        <p class="problem-a">→ Kartlegging og anbefaling tilpasset dere</p>
+      </div>
+      <div class="problem-card">
+        <p class="problem-q">«Vi har prøvd KI, men det ble ikke noe av det»</p>
+        <p class="problem-a">→ Implementering og opplæring som faktisk setter seg</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section>
+  <span class="section-badge">Slik jobber vi</span>
+  <h2 class="section-title">Enkelt og forutsigbart</h2>
+  <p class="section-sub">Tre steg – ingen overraskelser underveis.</p>
+  <div class="steps-grid">
+    <div class="step-card">
+      <div class="step-num">01.</div>
+      <h3>Kartlegging</h3>
+      <p>Vi går gjennom én arbeidsdag sammen og finner oppgavene som egner seg for automatisering.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">02.</div>
+      <h3>Løsning</h3>
+      <p>Jeg bygger og tester – du slipper å lære ny teknologi.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">03.</div>
+      <h3>Overlevering</h3>
+      <p>Du får noe som fungerer, og jeg forklarer det på et språk du forstår.</p>
+    </div>
+  </div>
+</section>
+
+<div class="contact-bg">
+  <div class="contact-inner">
+    <span class="contact-badge">Kontakt</span>
+    <h2>Lurer du på om dette er noe for deg?</h2>
+    <p>Send meg en melding, så tar vi en kort prat – helt uforpliktende. Jeg holder til i Ringsaker og jobber med bedrifter i hele Innlandet.</p>
+    <form id="contact-form" action="https://formspree.io/f/xbdpqnjy" method="POST">
+      <div class="form-group">
+        <label for="name">Navn</label>
+        <input id="name" type="text" name="name" placeholder="Ditt navn" required>
+      </div>
+      <div class="form-group">
+        <label for="email">E-post</label>
+        <input id="email" type="email" name="email" placeholder="din@epost.no" required>
+      </div>
+      <div class="form-group">
+        <label for="message">Hva sliter dere med?</label>
+        <textarea id="message" name="message" placeholder="Beskriv gjerne kort hva som tar mest tid i hverdagen..." required></textarea>
+      </div>
+      <button type="submit" class="submit-btn" id="submit-btn">Send melding</button>
+      <p id="form-status" style="margin-top:14px; font-size:0.9rem; color:rgba(255,255,255,0.85); display:none;"></p>
+    </form>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">Innlandet <em>KI</em></div>
+  <p>© 2025 Innlandet KI · Ringsaker</p>
+</footer>
+
+<script>
+  const form = document.getElementById('contact-form');
+  const status = document.getElementById('form-status');
+  const btn = document.getElementById('submit-btn');
+
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    btn.disabled = true;
+    btn.textContent = 'Sender...';
+
+    const data = new FormData(form);
+    const response = await fetch(form.action, {
+      method: 'POST',
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    });
+
+    status.style.display = 'block';
+    if (response.ok) {
+      status.textContent = '✓ Takk! Jeg tar kontakt snart.';
+      form.reset();
+      btn.textContent = 'Sendt!';
+    } else {
+      status.textContent = 'Noe gikk galt. Prøv igjen, eller send e-post direkte.';
+      btn.disabled = false;
+      btn.textContent = 'Send melding';
+    }
+  });
+</script>
+</body>
+</html>
